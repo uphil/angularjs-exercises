@@ -1,0 +1,35 @@
+<form class="form-inline">
+    <div class="form-group">
+        <input type="text" class="form-control" ng-model="expression">
+    </div>
+</form>
+
+<div>
+    <h4>Answer: <span ng-bind="answer"></span></h4>
+</div>
+
+<div class="buttons-container">
+    <div>
+        <button class="btn" type="button" ng-click="clear()">C</button>
+        <button class="btn" type="button" ng-click="doSquare()">X<sup>2</sup></button>
+        <button class="btn" type="button" ng-click="doCube()">X<sup>3</sup></button>
+    </div>
+
+    <span ng-repeat="(key, button) in operatorButtons">
+        <button class="btn" type="button"
+            ng-click="appendOperator(button.op)">
+            <span ng-bind="button.label"></span>
+        </button>
+    </span>
+
+    <span ng-repeat="number in numberButtons">
+        <button class="btn" type="button"
+            ng-click="appendNumber(number)">
+            <span ng-bind="number"></span>
+        </button>
+    </span>
+
+    <span>
+        <button class="btn" type="button" ng-click="calculate()">=</button>
+    </span>
+</div>

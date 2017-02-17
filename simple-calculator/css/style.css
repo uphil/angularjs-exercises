@@ -1,0 +1,13 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+body { padding: 15px; }
+
+.buttons-container {
+    width: 160px;
+}
+.buttons-container .btn {
+    margin: 0 0 4px;
+    width: 50px;
+}
