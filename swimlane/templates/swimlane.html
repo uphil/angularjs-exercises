@@ -5,8 +5,8 @@
                 <div class="col-sm-4 col-column">
                     <p class="col-title">Planned</p>
                     <hr />
-                    <div class="job-container" ondrop="drop(event)" ondragover="allowDrop(event)" test-watch type-id="type-a">
-                        <div class="job-loop" data-status="planned" ng-repeat="job in jobCtrl.list('planned') track by job.id">
+                    <div class="job-container" data-status="planned" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
+                        <div class="job-loop" ng-repeat="job in jobCtrl.list('planned') track by job.id">
                             <div class="col-job alert alert-danger" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
                                 <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
                                 <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
@@ -21,8 +21,8 @@
                 <div class="col-sm-4 col-column">
                     <p class="col-title">Working On</p>
                     <hr />
-                    <div class="job-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <div data-status="working-on" ng-repeat="job in jobCtrl.list('working on') track by job.id">
+                    <div class="job-container" data-status="working on" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
+                        <div class="job-loop" ng-repeat="job in jobCtrl.list('working on') track by job.id">
                             <div class="col-job alert alert-danger" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
                                 <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
                                 <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
@@ -37,8 +37,8 @@
                 <div class="col-sm-4 col-column">
                     <p class="col-title">Resolved</p>
                     <hr />
-                    <div class="job-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <div data-status="resolved" ng-repeat="job in jobCtrl.list('resolved') track by job.id">
+                    <div class="job-container" data-status="resolved" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
+                        <div class="job-loop" ng-repeat="job in jobCtrl.list('resolved') track by job.id">
                             <div class="col-job alert alert-warning" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
                                 <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
                                 <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
@@ -57,8 +57,8 @@
                 <div class="col-sm-6 col-column">
                     <p class="col-title">QA Tested</p>
                     <hr />
-                    <div class="job-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <div data-status="qa-tested" ng-repeat="job in jobCtrl.list('qa tested') track by job.id">
+                    <div class="job-container" data-status="qa tested" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
+                        <div class="job-loop" ng-repeat="job in jobCtrl.list('qa tested') track by job.id">
                             <div class="col-job alert alert-info" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
                                 <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
                                 <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
@@ -73,8 +73,8 @@
                 <div class="col-sm-6 col-column">
                     <p class="col-title">Completed</p>
                     <hr />
-                    <div class="job-container" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <div data-status="completed" ng-repeat="job in jobCtrl.list('completed') track by job.id">
+                    <div class="job-container" data-status="completed" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
+                        <div class="job-loop" ng-repeat="job in jobCtrl.list('completed') track by job.id">
                             <div class="col-job alert alert-success" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
                                 <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
                                 <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
