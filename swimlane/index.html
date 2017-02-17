@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Swimlane</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/non-responsive.css" rel="stylesheet">
+</head>
+
+<body ng-controller="BaseController as baseCtrl" ng-cloak>
+
+    <div class="container-fluid login" ng-if="baseCtrl.login">
+        <div ng-include="baseCtrl.templates.loginTemplate"></div>
+    </div>
+
+    <div class="container-fluid" ng-if="baseCtrl.swimlane">
+        <div ng-include="baseCtrl.templates.navTemplate"></div>
+
+        <button type="button" class="btn btn-primary btn-create pull-right" data-toggle="modal" data-target=".job-create-modal">Create Job</button>
+
+        <!-- create job modal -->
+        <div  class="modal fade job-create-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">Create Job</h4> </div>
+                    <div class="modal-body">
+                        <div ng-controller="JobController as jobCtrl">
+                            <form class="job-create-form" ng-submit="jobCtrl.create()">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Title</label>
+                                    <input name="title" type="text" class="form-control" placeholder="title" ng-model="jobCtrl.title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Description</label>
+                                    <textarea name="description" rows="8" cols="40" ng-model="jobCtrl.description" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- create job modal -->
+        <div  class="modal fade job-update-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">Update Job</h4> </div>
+                    <div class="modal-body">
+                        <div ng-controller="JobController as jobCtrl">
+                            <form class="job-update-form" ng-submit="jobCtrl.update()">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Title</label>
+                                    <input name="title" type="text" class="form-control" placeholder="title" ng-model="jobCtrl.title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Description</label>
+                                    <textarea name="description" rows="8" cols="40" ng-model="jobCtrl.description" required></textarea>
+                                </div>
+                                <input name="id" type="hidden" class="form-control">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-include="baseCtrl.templates.swimlaneTemplate" class="container-swimlane"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="js/angular.min.js" charset="utf-8"></script>
+    <script src="js/ngStorage.min.js"></script>
+    <script src="app.js" charset="utf-8"></script>
+</body>
+
+</html>

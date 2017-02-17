@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+
+    <style>
+        .dropbox-1,
+        .dropbox-2,
+        .dropbox-3 {
+            width: 200px;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #aaa;
+        }
+
+        .box {
+            background: black;
+            height: 40px;
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dropbox-1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+
+    <div class="box" id="box1" draggable="true" ondragstart="drag(event)"></div>
+
+    <div class="box" id="box2" draggable="true" ondragstart="drag(event)">
+
+    </div>
+    <!-- <img id="drag1" src="img_logo.gif" draggable="true" ondragstart="drag(event)" width="336" height="69"> -->
+
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            // console.log('ev', ev);
+            // console.log('ev.target.id', ev.target.id);
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            //console.log('test', data);
+            console.log('ev.target', ev.target);
+            ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+
+</body>
+
+</html>
