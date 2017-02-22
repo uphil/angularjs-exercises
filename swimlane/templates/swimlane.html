@@ -1,92 +1,75 @@
-<div class="col-sm-12" ng-controller="JobController as jobCtrl">
-    <div class="row">
-        <div class="col-sm-7 five-three">
-            <div class="row">
-                <div class="col-sm-4 col-column">
-                    <p class="col-title">Planned</p>
-                    <hr />
-                    <div class="job-container" data-status="planned" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
-                        <div class="job-loop" ng-repeat="job in jobCtrl.list('planned') track by job.id">
-                            <div class="col-job alert alert-danger" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
-                                <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
-                                <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
-                                    <span class="glyphicon glyphicon-pencil job-update"></span>
-                                </button>
-                                <p><span ng-bind="job.title"></span></p>
-                                <p ng-bind="job.description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-column">
-                    <p class="col-title">Working On</p>
-                    <hr />
-                    <div class="job-container" data-status="working on" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
-                        <div class="job-loop" ng-repeat="job in jobCtrl.list('working on') track by job.id">
-                            <div class="col-job alert alert-danger" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
-                                <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
-                                <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
-                                    <span class="glyphicon glyphicon-pencil job-update"></span>
-                                </button>
-                                <p><span ng-bind="job.title"></span></p>
-                                <p ng-bind="job.description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-column">
-                    <p class="col-title">Resolved</p>
-                    <hr />
-                    <div class="job-container" data-status="resolved" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
-                        <div class="job-loop" ng-repeat="job in jobCtrl.list('resolved') track by job.id">
-                            <div class="col-job alert alert-warning" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
-                                <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
-                                <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
-                                    <span class="glyphicon glyphicon-pencil job-update"></span>
-                                </button>
-                                <p><span ng-bind="job.title"></span></p>
-                                <p ng-bind="job.description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5 five-two">
-            <div class="row">
-                <div class="col-sm-6 col-column">
-                    <p class="col-title">QA Tested</p>
-                    <hr />
-                    <div class="job-container" data-status="qa tested" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
-                        <div class="job-loop" ng-repeat="job in jobCtrl.list('qa tested') track by job.id">
-                            <div class="col-job alert alert-info" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
-                                <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
-                                <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
-                                    <span class="glyphicon glyphicon-pencil job-update"></span>
-                                </button>
-                                <p><span ng-bind="job.title"></span></p>
-                                <p ng-bind="job.description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-column">
-                    <p class="col-title">Completed</p>
-                    <hr />
-                    <div class="job-container" data-status="completed" ondrop="drop(event)" ondragover="allowDrop(event)" type-id="type-a">
-                        <div class="job-loop" ng-repeat="job in jobCtrl.list('completed') track by job.id">
-                            <div class="col-job alert alert-success" move-job id="job-{{job.id}}" draggable="true" ondragstart="drag(event)">
-                                <button type="button" class="close pull-right"><span data-id="{{job.id}}" delete-job>&times;</span></button>
-                                <button type="button" class="close pull-right" update-job data-id="{{job.id}}" data-toggle="modal" data-target=".job-update-modal">
-                                    <span class="glyphicon glyphicon-pencil job-update"></span>
-                                </button>
-                                <p><span ng-bind="job.title"></span></p>
-                                <p ng-bind="job.description"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div ng-controller="JobController as jobCtrl" class="container-swimlane">
+
+    <div>
+        <div class="popover-wrapper">
+            <a href="#">
+                <h2 class="popover-title">Create Job</h2>
+            </a>
+            <div class="push popover-content">
+                <form ng-submit="jobCtrl.create()">
+                    <p>Title:</p>
+                    <input name="title" type="text" class="form-control" placeholder="title" ng-model="jobCtrl.title" required>
+                    <p>Description:</p>
+                    <textarea name="description" rows="8" cols="40" ng-model="jobCtrl.description" required></textarea>
+                    <p><button>Submit</button></p>
+                </form>
             </div>
         </div>
     </div>
+
+    <div class="column" data-status="planned" droppable>
+        <h4>Planned</h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'planned' } track by job.id">
+            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
+                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
+                <p class="title"><span ng-bind="job.title"></span></p>
+                <p class="description" ng-bind="job.description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column" data-status="working on" droppable>
+        <h4>Working on</h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'working on' } track by job.id">
+            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
+                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
+                <p class="title"><span ng-bind="job.title"></span></p>
+                <p class="description" ng-bind="job.description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column" data-status="resolved" droppable>
+        <h4 class="resolved">Resolved</h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'resolved' } track by job.id">
+            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
+                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
+                <p class="title"><span ng-bind="job.title"></span></p>
+                <p class="description" ng-bind="job.description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column" data-status="qa tested" droppable>
+        <h4 class="qa-tested">Qa Tested</h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'qa tested' } track by job.id">
+            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
+                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
+                <p class="title"><span ng-bind="job.title"></span></p>
+                <p class="description" ng-bind="job.description"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="column" data-status="completed" droppable>
+        <h4 class="completed">Completed</h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'completed' } track by job.id">
+            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
+                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
+                <p class="title"><span ng-bind="job.title"></span></p>
+                <p class="description" ng-bind="job.description"></p>
+            </div>
+        </div>
+    </div>
+
 </div>
