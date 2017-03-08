@@ -1,34 +1,28 @@
 'use strict';
 
-angular.module('app')
-.directive('draggable', ['JobService', function(JobService) {
-    return {
-        restrict: 'A',
-        link: function(scope, element, attrs) {
-            element[0].draggable = true;
+(function(app) {
 
-            element.on('dragstart', function(e) {
-                e.dataTransfer.effectAllowed = 'move';
-                e.dataTransfer.setData('Text', element.attr('job-id'));
-                this.classList.add('drag');
-                // console.log("dragstart");
-            });
+    function draggable() {
+        return {
+            restrict: 'A',
+            link: function(scope, element) {
+                element[0].draggable = true;
 
-            element.on('dragend', function(e) {
-                var id = element.attr('job-id'),
-                    status = element.parent().attr('data-status');
-                var detail = {
-                    status: status
-                };
+                element.on('dragstart', function(e) {
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('Text', element.attr('job-id'));
+                    this.classList.add('drag');
+                    // console.log("dragstart");
+                });
 
-                this.classList.remove('drag');
-                // console.log("dragend");
+                element.on('dragend', function() {
+                    this.classList.remove('drag');
+                    // console.log("dragend");
+                });
+            }
+        };
+    }
 
-                // update job status
-                JobService.update(parseInt(id), detail);
+    app.directive('draggable', [draggable]);
 
-                console.log('new list', JobService.list());
-            });
-        }
-    };
-}]);
+})(swimlane);

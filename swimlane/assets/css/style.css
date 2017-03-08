@@ -166,6 +166,7 @@ button {
     right: 8px;
     top: 5px;
     cursor: pointer;
+    margin: 0;
 }
 
 .job.drag {
@@ -231,4 +232,8 @@ button {
 
 .popover-message {
     text-align: center;
+}
+
+.hide {
+    display: none;
 }

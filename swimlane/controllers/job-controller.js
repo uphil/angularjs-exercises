@@ -1,23 +1,26 @@
 'use strict';
 
-angular.module('app')
-.controller('JobController', ['JobService', function(JobService) {
-    var vm = this;
+(function(app) {
 
-    vm.list = JobService.list();
+    function JobController(JobService) {
+        var vm = this;
 
-    vm.create = function() {
-        JobService.create({
-            title: vm.title,
-            description: vm.description
-        });
-    };
+        vm.list = JobService.list();
+        vm.statusList = JobService.statusList();
 
-    vm.update = function() {
-        // JobService.update();
-    };
+        vm.create = function(title, description) {
+            JobService.create(title, description);
+        };
 
-    vm.delete = function(id) {
-        JobService.delete(id);
-    };
-}]);
+        vm.update = function() {
+            // ...
+        };
+
+        vm.delete = function(id) {
+            JobService.delete(id);
+        };
+    }
+
+    app.controller('JobController', ['JobService', JobController]);
+
+})(swimlane);

@@ -1,41 +1,49 @@
 'use strict';
 
-angular.module('app')
-.directive('droppable', [function() {
-    return {
-        scope: {
-            drop: '&'
-        },
-        controller: 'JobController',
-        controllerAs: 'jobCtrl',
-        link: function(scope, element) {
-            element.on('dragover', function(e) {
-                e.dataTransfer.dropEffect = 'move';
-                e.preventDefault();
+(function(app) {
 
-                this.classList.add('over');
-                // console.log("dragover");
-            });
+    function droppable(JobService) {
+        return {
+            scope: {
+                drop: '&'
+            },
+            controller: 'JobController',
+            controllerAs: 'jobCtrl',
+            link: function(scope, element) {
+                element.on('dragover', function(e) {
+                    e.dataTransfer.dropEffect = 'move';
+                    e.preventDefault();
+                    // console.log('this.classList', this.classList);
+                    this.classList.add('over');
+                    // console.log("dragover");
+                });
 
-            element.on('dragenter', function(e) {
-                this.classList.add('over');
-                // console.log("dragenter");
-            });
+                element.on('dragenter', function() {
+                    this.classList.add('over');
+                    // console.log("dragenter", element[0]);
+                });
 
-            element.on('dragleave', function(e) {
-                this.classList.remove('over');
-                // console.log("dragleave");
-            });
+                element.on('dragleave', function() {
+                    this.classList.remove('over');
+                    // console.log("dragleave");
+                });
 
-            element.on('drop', function(e) {
-                var id = e.dataTransfer.getData('Text'),
-                    job = angular.element(document.querySelector('.job-'+id))[0];
+                element.on('drop', function(e) {
+                    this.classList.remove('over');
 
-                this.classList.remove('over');
-                this.appendChild(job);
+                    JobService.update({
+                        id: e.dataTransfer.getData('Text'),
+                        status: (element.attr('data-status')).toLowerCase()
+                    });
 
-                // console.log('drop');
-            });
-        }
-    };
-}]);
+                    scope.$evalAsync();
+
+                    console.log('new list', JobService.list());
+                });
+            }
+        };
+    }
+
+    app.directive('droppable', ['JobService', droppable]);
+
+})(swimlane);

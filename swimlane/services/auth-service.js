@@ -1,35 +1,39 @@
 'use strict';
 
-angular.module('app')
-.service('AuthService', ['$localStorage', function($localStorage) {
-    var service = {};
+(function(app) {
 
-    // setup fake user
-    var fakeUser = {
-        username: 'phil',
-        password: 'a',
-        token: 'abc'
-    };
+    function AuthService($localStorage) {
+        var service = {};
 
-    service.login = function(username, password, response) {
-        if (fakeUser.username === username &&
-            fakeUser.password === password) {
+        // setup fake user
+        var fakeUser = {
+            username: 'phil',
+            password: 'a',
+            token: 'abc'
+        };
 
-            $localStorage.authUser = {
-                username: username,
-                token: fakeUser.token
-            };
+        service.login = function(username, password) {
+            if (fakeUser.username === username &&
+                fakeUser.password === password) {
 
-            response(true);
-        }
-        else {
-            response(false);
-        }
-    };
+                $localStorage.authUser = {
+                    username: username,
+                    token: fakeUser.token
+                };
 
-    service.logout = function() {
-        delete $localStorage.authUser;
-    };
+                return true;
+            }
 
-    return service;
-}]);
+            return false;
+        };
+
+        service.logout = function() {
+            delete $localStorage.authUser;
+        };
+
+        return service;
+    }
+
+    app.service('AuthService', ['$localStorage', AuthService]);
+
+})(swimlane);

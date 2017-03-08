@@ -4,9 +4,8 @@
             <a class="logo" href="#">Swimlane</a>
         </div>
         <ul class="navbar-right">
-            <li><a title="create">Create</a></li>
-            <li ng-show="baseCtrl.user">Logged in, <span ng-bind="baseCtrl.user"></span></li>
-            <li><a href="#" ng-click="baseCtrl.logout()" title="logout">Logout</a></li>
+            <li ng-show="loginCtrl.user">Logged in, <span ng-bind="loginCtrl.user"></span></li>
+            <li><a href="#" ng-click="loginCtrl.logout()" title="logout">Logout</a></li>
         </ul>
     </div>
 </nav>

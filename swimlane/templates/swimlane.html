@@ -6,9 +6,9 @@
                 <h2 class="popover-title">Create Job</h2>
             </a>
             <div class="push popover-content">
-                <form ng-submit="jobCtrl.create()">
+                <form ng-submit="jobCtrl.create(jobCtrl.title, jobCtrl.description)">
                     <p>Title:</p>
-                    <input name="title" type="text" class="form-control" placeholder="title" ng-model="jobCtrl.title" required>
+                    <input name="title" type="text" placeholder="title" ng-model="jobCtrl.title" required>
                     <p>Description:</p>
                     <textarea name="description" rows="8" cols="40" ng-model="jobCtrl.description" required></textarea>
                     <p><button>Submit</button></p>
@@ -17,56 +17,12 @@
         </div>
     </div>
 
-    <div class="column" data-status="planned" droppable>
-        <h4>Planned</h4>
-        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'planned' } track by job.id">
-            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
-                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
-                <p class="title"><span ng-bind="job.title"></span></p>
-                <p class="description" ng-bind="job.description"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="column" data-status="working on" droppable>
-        <h4>Working on</h4>
-        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'working on' } track by job.id">
-            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
-                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
-                <p class="title"><span ng-bind="job.title"></span></p>
-                <p class="description" ng-bind="job.description"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="column" data-status="resolved" droppable>
-        <h4 class="resolved">Resolved</h4>
-        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'resolved' } track by job.id">
-            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
-                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
-                <p class="title"><span ng-bind="job.title"></span></p>
-                <p class="description" ng-bind="job.description"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="column" data-status="qa tested" droppable>
-        <h4 class="qa-tested">Qa Tested</h4>
-        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'qa tested' } track by job.id">
-            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
-                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
-                <p class="title"><span ng-bind="job.title"></span></p>
-                <p class="description" ng-bind="job.description"></p>
-            </div>
-        </div>
-    </div>
-
-    <div class="column" data-status="completed" droppable>
-        <h4 class="completed">Completed</h4>
-        <div ng-repeat="job in jobCtrl.list | filter:{ status: 'completed' } track by job.id">
-            <div class="job job-{{job.id}}" job-id="{{job.id}}" draggable>
-                <span class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</span>
-                <p class="title"><span ng-bind="job.title"></span></p>
+    <div class="column" ng-repeat="status in jobCtrl.statusList" data-status="{{ status }}" droppable>
+        <h4 class="{{ status | spaceless }}" ng-bind="status"></h4>
+        <div ng-repeat="job in jobCtrl.list | filter:{ status: status } track by job.id">
+            <div class="job" job-id="{{job.id}}" draggable>
+                <p class="delete-icon" ng-click="jobCtrl.delete(job.id)">&times;</p>
+                <p class="title" ng-bind="job.title"></p>
                 <p class="description" ng-bind="job.description"></p>
             </div>
         </div>

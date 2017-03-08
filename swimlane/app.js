@@ -1,10 +1,9 @@
 'use strict';
 
-angular
-    .module('app', ['ngStorage'])
-    .config([function() {
-        // console.log('config');
-    }])
-    .run(['$rootScope', function($rootScope) {
-        // console.log('run');
-    }]);
+window.swimlane = angular.module('app', ['ngStorage'])
+                    .config([function() {
+                        // console.log('config');
+                    }])
+                    .run([function() {
+                        // console.log('run');
+                    }]);

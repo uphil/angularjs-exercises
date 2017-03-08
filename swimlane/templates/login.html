@@ -1,11 +1,11 @@
-<form class="form-signin" ng-submit="baseCtrl.submit()">
-    <div class="notify error" role="alert" ng-if="baseCtrl.error" ng-bind="baseCtrl.error"></div>
+<form class="form-signin" ng-submit="loginCtrl.submit()">
+    <div class="notify error" role="alert" ng-if="loginCtrl.error" ng-bind="loginCtrl.error"></div>
 
     <h2 class="form-signin-heading">Login</h2>
     <p><label >Email address</label></p>
-    <input ng-model="baseCtrl.username" type="username" placeholder="Email address" required autofocus>
+    <input ng-model="loginCtrl.username" type="username" placeholder="Email address" required autofocus>
     <p><label>Password</label></p>
-    <input ng-model="baseCtrl.password" type="password" placeholder="Password" required>
+    <input ng-model="loginCtrl.password" type="password" placeholder="Password" required>
 
     <button class="btn-login" type="submit">Login</button>
 </form>

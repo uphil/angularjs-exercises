@@ -2,7 +2,7 @@
 <html lang="en" ng-app="app">
 
 <head>
-    <meta charset="utf-8">
+    <meta>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Swimlane</title>
@@ -11,38 +11,40 @@
     <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
-<body ng-controller="BaseController as baseCtrl" ng-cloak>
+<body ng-controller="LoginController as loginCtrl" ng-cloak>
 
-    <div class="container-fluid login" ng-if="baseCtrl.login">
-        <div ng-include="baseCtrl.templates.loginTemplate"></div>
+    <div class="container-fluid login" ng-if="loginCtrl.login">
+        <div ng-include="loginCtrl.templates.loginTemplate"></div>
     </div>
 
-    <div class="container-fluid" ng-if="baseCtrl.swimlane">
-        <div ng-include="baseCtrl.templates.navTemplate"></div>
+    <div class="container-fluid" ng-if="loginCtrl.swimlane">
+        <div ng-include="loginCtrl.templates.navTemplate"></div>
 
-        <div ng-include="baseCtrl.templates.swimlaneTemplate" class="container-swimlane"></div>
+        <div ng-include="loginCtrl.templates.swimlaneTemplate" class="container-swimlane"></div>
     </div>
 
-    <script src="assets/js/angular.min.js" charset="utf-8"></script>
+    <script src="assets/js/angular.min.js"></script>
     <script src="assets/js/ngStorage.min.js"></script>
 
     <!-- module -->
-    <script src="app.js" charset="utf-8"></script>
+    <script src="app.js"></script>
 
     <!-- controllers -->
-    <script src="controllers/base-controller.js" charset="utf-8"></script>
-    <script src="controllers/job-controller.js" charset="utf-8"></script>
+    <script src="controllers/login-controller.js"></script>
+    <script src="controllers/job-controller.js"></script>
 
     <!-- services -->
-    <script src="services/auth-service.js" charset="utf-8"></script>
-    <script src="services/job-service.js" charset="utf-8"></script>
+    <script src="services/auth-service.js"></script>
+    <script src="services/job-service.js"></script>
 
     <!-- filters -->
-    <script src="filters/job-filter.js" charset="utf-8"></script>
+    <script src="filters/job-filter.js"></script>
+    <script src="filters/spaceless-filter.js"></script>
+    <script src="filters/ticket-status-filter.js"></script>
 
     <!-- directives -->
-    <script src="directives/draggable.js" charset="utf-8"></script>
-    <script src="directives/droppable.js" charset="utf-8"></script>
+    <script src="directives/draggable.js"></script>
+    <script src="directives/droppable.js"></script>
 </body>
 
 </html>

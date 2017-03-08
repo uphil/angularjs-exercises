@@ -1,92 +1,125 @@
 'use strict';
 
-angular.module('app')
-.service('JobService', ['$rootScope', 'findJobIndexFilter', function($rootScope, findJobIndexFilter) {
-    var service = {},
-        jobs = [
-            {
-                id: 1,
-                title: "Job 1",
-                description: "Some description here..",
-                status: "planned"
-            },
-            {
-                id: 2,
-                title: "Job 2",
-                description: "Some description here...",
-                status: "working on"
-            },
-            {
-                id: 3,
-                title: "Job 3",
-                description: "Some description here...",
-                status: "resolved"
-            },
-            {
-                id: 4,
-                title: "Job 4",
-                description: "Some description here...",
-                status: "qa tested"
-            },
-            {
-                id: 5,
-                title: "Job 5",
-                description: "Some description here...",
-                status: "completed"
+(function(app) {
+
+    function JobService(findJobIndexFilter, ticketStatusFilter) {
+        var service = {},
+            statuses = [
+                "Planned",
+                "Working On",
+                "Resolved",
+                "Qa Tested",
+                "Completed"
+            ],
+            jobs = [
+                {
+                    id: 1,
+                    title: "Job 1",
+                    description: "Some description here..",
+                    status: "planned"
+                },
+                {
+                    id: 2,
+                    title: "Job 2",
+                    description: "Some description here...",
+                    status: "working on"
+                },
+                {
+                    id: 3,
+                    title: "Job 3",
+                    description: "Some description here...",
+                    status: "resolved"
+                },
+                {
+                    id: 4,
+                    title: "Job 4",
+                    description: "Some description here...",
+                    status: "qa tested"
+                },
+                {
+                    id: 5,
+                    title: "Job 5",
+                    description: "Some description here...",
+                    status: "completed"
+                }
+            ];
+
+        service.getListCount = function () {
+            return jobs.length;
+        };
+
+        service.generateNextId = function() {
+            var math = Math,
+                mathMax = math.max,
+                id = mathMax.apply(math, jobs.map(getIds));
+
+            function getIds(job) {
+                return job.id;
             }
-        ];
 
-    service.getListCount = function () {
-        return jobs.length;
-    };
+            return parseInt(++id);
+        };
 
-    service.create = function(job) {
-        if (typeof job !== 'object') {
-            // error here..
-            return null;
-        }
+        service.create = function(title, description) {
+            var job = {
+                id: this.generateNextId(),
+                title: title,
+                description: description,
+                status: ticketStatusFilter()
+            };
 
-        // set default status
-        job.status = 'planned';
+            jobs.push(job);
 
-        // set id
-        job.id = service.getListCount() + 1;
-        jobs.push(job);
+            return job;
+        };
 
-        $rootScope.$broadcast('added', job);
+        service.list = function() {
+            return jobs;
+        };
 
-        return job;
-    };
+        service.update = function(detail) {
+            var job = this.get(detail.id),
+                status = ticketStatusFilter(detail.status);
 
-    service.list = function() {
-        return jobs;
-    };
+            if (job && status) {
+                service.delete(job.id);
 
-    service.update = function(id, detail) {
-        var job = service.get(id),
-            index = findJobIndexFilter(jobs, job);
+                job.id = service.generateNextId();
+                job.status = status;
 
-        if (detail.status) {
-            job.status = detail.status;
-        }
+                jobs.push(job);
+            }
+        };
 
-        jobs[index] = job;
-    };
+        service.delete = function(id) {
+            var job = this.get(id),
+                index = findJobIndexFilter(jobs, job);
 
-    service.delete = function(id) {
-        var job = service.get(id),
-            index = findJobIndexFilter(jobs, job);
+            if (job) {
+                jobs.splice(index, 1);
+            }
+        };
 
-        jobs.splice(index, 1);
-    };
+        service.get = function(id) {
+            var matched = jobs.filter(findId),
+                job = matched[0];
 
-    service.get = function(id) {
-        var job = jobs.filter(function(job) {
-            return job.id === id;
-        });
+            function findId(job) {
+                return job.id === parseInt(id);
+            }
 
-        return job[0];
-    };
+            return (job) ? job : null;
+        };
 
-    return service;
-}]);
+        service.statusList = function() {
+            return statuses;
+        };
+
+        return service;
+    }
+
+    app.service('JobService', ['findJobIndexFilter',
+                                'ticketStatusFilter',
+                                JobService]);
+
+})(swimlane);
