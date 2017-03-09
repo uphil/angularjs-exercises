@@ -15,7 +15,7 @@
                 ];
 
             if (typeof status === 'string' && status &&
-                statuses.indexOf(status) > -1) {
+                statuses.indexOf(status.toLowerCase()) > -1) {
 
                 return status;
             }

@@ -10,6 +10,7 @@
             controller: 'JobController',
             controllerAs: 'jobCtrl',
             link: function(scope, element) {
+
                 element.on('dragover', function(e) {
                     e.dataTransfer.dropEffect = 'move';
                     e.preventDefault();
@@ -29,14 +30,18 @@
                 });
 
                 element.on('drop', function(e) {
+                    var data = {
+                        id:  e.dataTransfer.getData('Text'),
+                        status: element.attr('data-status')
+                    };
+
                     this.classList.remove('over');
 
-                    JobService.update({
-                        id: e.dataTransfer.getData('Text'),
-                        status: (element.attr('data-status')).toLowerCase()
-                    });
-
-                    scope.$evalAsync();
+                    scope.$evalAsync('$$service.update($$data)',
+                                    {
+                                        "$$service": JobService,
+                                        "$$data": data
+                                    });
 
                     console.log('new list', JobService.list());
                 });
