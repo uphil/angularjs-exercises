@@ -2,19 +2,16 @@
 
 (function(app) {
 
-    function findJobIndex() {
+    function findJobIndex(list, job) {
+        var index = list.findIndex(function(x) {
+            return x.id === job.id;
+        });
 
-        function getIndex(list, job) {
-            var index = list.findIndex(function(x) {
-                return x.id === job.id;
-            });
-
-            return index;
-        }
-
-        return getIndex;
+        return index;
     }
 
-    app.filter('findJobIndex', [findJobIndex]);
+    app.filter('findJobIndex', [function() {
+                                    return findJobIndex;
+                                }]);
 
 })(swimlane);

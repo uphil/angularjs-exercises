@@ -2,30 +2,27 @@
 
 (function(app) {
 
-    function ticketStatus() {
+    function normalize(status) {
+        var defaultStatus = 'planned',
+            statuses = [
+                'planned',
+                'working on',
+                'resolved',
+                'qa tested',
+                'completed'
+            ];
 
-        function normalize(status) {
-            var defaultStatus = 'planned',
-                statuses = [
-                    'planned',
-                    'working on',
-                    'resolved',
-                    'qa tested',
-                    'completed'
-                ];
+        if (typeof status === 'string' && status &&
+            statuses.indexOf(status.toLowerCase()) > -1) {
 
-            if (typeof status === 'string' && status &&
-                statuses.indexOf(status.toLowerCase()) > -1) {
-
-                return status;
-            }
-
-            return defaultStatus;
+            return status;
         }
 
-        return normalize;
+        return defaultStatus;
     }
 
-    app.filter('ticketStatus', [ticketStatus]);
+    app.filter('ticketStatus', [function() {
+                                    return normalize;
+                                }]);
 
 })(swimlane);
